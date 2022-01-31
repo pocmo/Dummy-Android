@@ -13,6 +13,30 @@ buildscript {
     }
 }
 
+
+plugins {
+    id("io.gitlab.arturbosch.detekt").version("1.17.1")  // Check version number in `Versions.detekt` (Dependencies.kt)
+}
+
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+detekt {
+    input = files("$rootDir")
+
+    failFast = false
+
+    reports {
+        html {
+            enabled = true
+            destination = file("$projectDir/build/reports/detekt.html")
+        }
+        xml {
+            enabled = false
+        }
+        txt {
+            enabled = false
+        }
+    }
 }
